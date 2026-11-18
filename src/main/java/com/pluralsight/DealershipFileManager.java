@@ -9,24 +9,23 @@ import java.util.regex.Pattern;
 
 public class DealershipFileManager {
     private static final String FILE_NAME = "inventory.csv";
+
     public Dealership getDealership() {
         Dealership dealership = null;
         try { BufferedReader bufReader = new BufferedReader(new FileReader(FILE_NAME));
-            // Read first line for Dealership details
             String line = bufReader.readLine();
             if (line != null) {
-                String[] dealershipTokens = line.split(Pattern.quote("|"));
+                String[] dealershipTokens = line.split("\\|");
                 String name = dealershipTokens[0];
                 String address = dealershipTokens[1];
                 String phone = dealershipTokens[2];
                 dealership = new Dealership(name, address, phone);
             }
-            // Read remaining lines for Vehicle inventory
             while ((line = bufReader.readLine()) != null) {
                 if (line.trim().isEmpty()) {
                     continue;
                 }
-                String[] tokens = line.split(Pattern.quote("|"));
+                String[] tokens = line.split("\\|");
                 int vin = Integer.parseInt(tokens[0]);
                 int year = Integer.parseInt(tokens[1]);
                 String make = tokens[2];

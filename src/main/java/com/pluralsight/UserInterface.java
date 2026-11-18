@@ -8,10 +8,9 @@ public class UserInterface {
     private Dealership dealership;
     private Scanner scanner;
 
-    public UserInterface(Dealership dealership) {
-        this.dealership = dealership;
-    }
-
+public UserInterface() {
+    this.scanner = new Scanner(System.in);
+}
     private void init() {
         DealershipFileManager fileManager = new DealershipFileManager();
         this.dealership = fileManager.getDealership();
@@ -19,6 +18,11 @@ public class UserInterface {
 
     public void display() {
         init();
+
+        if (this.dealership == null) {
+            System.out.println("Sorry, an error occurred with couldn't load the dealership. ");
+            return;
+        }
 
         boolean running = true;
         while (running) {
